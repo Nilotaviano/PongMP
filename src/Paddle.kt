@@ -11,9 +11,9 @@ class Paddle (var xPos:Float,val yPos:Float) : IUpdateable, IDrawable
     // TODO: 4real
     override fun update(interval:Int) {
         if(InputManager.input.contains(KeyCode.LEFT) || InputManager.input.contains(KeyCode.A))
-            xPos -= maxSpd
+            xPos -= maxSpd * interval
         if(InputManager.input.contains(KeyCode.RIGHT) || InputManager.input.contains(KeyCode.D))
-            xPos += maxSpd
+            xPos += maxSpd * interval
     }
 
     override fun draw() {
