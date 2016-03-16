@@ -1,4 +1,6 @@
-class Paddle (val paddleXPos:Float,val ballXPos:Float, val ballYPos:Float) : Serializable
+import java.io.Serializable
+
+class Message(val paddleXPos: Float, val ballXPos: Float, val ballYPos: Float) : Serializable
 {
     
 }

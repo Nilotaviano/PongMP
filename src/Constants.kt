@@ -3,7 +3,7 @@
  */
 class Constants {
     companion object {
-        val myWorldSize:Float = 1.0f
+        val myWorldSize: Double = 800.0 //TODO
     }
 
 }

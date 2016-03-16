@@ -1,11 +1,13 @@
+import javafx.scene.canvas.GraphicsContext
+
 /**
  * Created by nilot on 14/03/2016.
  */
-class Ball(var xPos:Float,var yPos:Float,var xSpd:Float,var ySpd:Float) : IUpdateable, IDrawable
+class Ball(var xPos: Double, var yPos: Double, var xSpd: Double, var ySpd: Double) : IUpdateable, IDrawable
 {
-    val size  = 0.05f
+    val size = 5.0
 
-    override fun update(interval:Int) {
+    override fun update(interval: Double) {
         val xMovement = xSpd * interval
         val yMovement = ySpd * interval
 
@@ -13,7 +15,7 @@ class Ball(var xPos:Float,var yPos:Float,var xSpd:Float,var ySpd:Float) : IUpdat
         incrementYPos(yMovement)
     }
 
-    private fun incrementYPos(yMovement:Float) {
+    private fun incrementYPos(yMovement: Double) {
 
         if(yPos + yMovement > Constants.myWorldSize)
         {
@@ -29,7 +31,7 @@ class Ball(var xPos:Float,var yPos:Float,var xSpd:Float,var ySpd:Float) : IUpdat
             yPos += yMovement
     }
 
-    private fun incrementXPos(xMovement:Float) {
+    private fun incrementXPos(xMovement: Double) {
 
         if(xPos + xMovement > Constants.myWorldSize)
         {
@@ -45,7 +47,7 @@ class Ball(var xPos:Float,var yPos:Float,var xSpd:Float,var ySpd:Float) : IUpdat
             xPos += xMovement
     }
 
-    override fun draw() {
-        throw UnsupportedOperationException()
+    override fun draw(gc: GraphicsContext) {
+        gc.fillRoundRect(xPos, yPos, size, size, 50.0, 25.0)
     }
 }
