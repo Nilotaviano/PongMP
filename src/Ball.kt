@@ -25,7 +25,7 @@ class Ball(var xPos: Double, var yPos: Double, var xSpd: Double, var ySpd: Doubl
         else if(yPos + yMovement <= 0)
         {
             ySpd = -ySpd
-            yPos = yMovement
+            yPos = yMovement - yPos
         }
         else
             yPos += yMovement
@@ -41,7 +41,7 @@ class Ball(var xPos: Double, var yPos: Double, var xSpd: Double, var ySpd: Doubl
         else if(xPos + xMovement <= 0)
         {
             xSpd = -xSpd
-            xPos = xMovement
+            xPos = xMovement - xPos
         }
         else
             xPos += xMovement
