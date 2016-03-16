@@ -6,18 +6,22 @@ import javafx.scene.input.KeyCode
  */
 class Paddle(var xPos: Double, val yPos: Double) : IUpdateable, IDrawable
 {
-    val size  = 0.05f
-    val maxSpd = 0.05f
+    val maxSpd = 0.05
+    val width = Constants.myWorldSize / 40
+    val height = Constants.myWorldSize / 200
 
     // TODO: 4real
     override fun update(interval: Double) {
-        if(InputManager.input.contains(KeyCode.LEFT) || InputManager.input.contains(KeyCode.A))
-            xPos -= maxSpd * interval
-        if(InputManager.input.contains(KeyCode.RIGHT) || InputManager.input.contains(KeyCode.D))
-            xPos += maxSpd * interval
+      val movement = maxSpd * interval
+        if((InputManager.input.contains(KeyCode.LEFT) || InputManager.input.contains(KeyCode.A))
+          && xPos - movement - width/2 >= 0)
+            xPos -= movement
+        if((InputManager.input.contains(KeyCode.RIGHT) || InputManager.input.contains(KeyCode.D))
+          && xPos + movement + width/2 <= Constants.myWorldSize)
+            xPos += movement
     }
 
     override fun draw(gc: GraphicsContext) {
-        throw UnsupportedOperationException()
+        gc.fillRoundRect(xPos, yPos, width, height, 0.0, 0.0)
     }
 }

@@ -30,7 +30,7 @@ class PlayState : Application() {
 
             override fun handle(currentNanoTime: Long) {
                 val t: Double = (currentNanoTime - startNanoTime) / 1000000000.0;
-
+                gc.clearRect(0, 0, Constants.myWorldSize, Constants.myWorldSize);
                 ball.update(t)
                 ball.draw(gc)
             }

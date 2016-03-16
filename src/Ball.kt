@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext
  */
 class Ball(var xPos: Double, var yPos: Double, var xSpd: Double, var ySpd: Double) : IUpdateable, IDrawable
 {
-    val size = 5.0
+    val radius = Constants.myWorldSize / 200
 
     override fun update(interval: Double) {
         val xMovement = xSpd * interval
@@ -17,15 +17,15 @@ class Ball(var xPos: Double, var yPos: Double, var xSpd: Double, var ySpd: Doubl
 
     private fun incrementYPos(yMovement: Double) {
 
-        if(yPos + yMovement > Constants.myWorldSize)
+        if(yPos + yMovement >= Constants.myWorldSize)
         {
             ySpd = -ySpd
             yPos = 2 * Constants.myWorldSize - (yPos + yMovement)
         }
-        else if(yPos + yMovement < -Constants.myWorldSize)
+        else if(yPos + yMovement <= 0)
         {
             ySpd = -ySpd
-            yPos = 2 * -Constants.myWorldSize + (yPos + yMovement)
+            yPos = yMovement
         }
         else
             yPos += yMovement
@@ -33,21 +33,21 @@ class Ball(var xPos: Double, var yPos: Double, var xSpd: Double, var ySpd: Doubl
 
     private fun incrementXPos(xMovement: Double) {
 
-        if(xPos + xMovement > Constants.myWorldSize)
+        if(xPos + xMovement >= Constants.myWorldSize)
         {
             xSpd = -xSpd
             xPos = 2 * Constants.myWorldSize - (xPos + xMovement)
         }
-        else if(yPos + xMovement < -Constants.myWorldSize)
+        else if(xPos + xMovement <= 0)
         {
             xSpd = -xSpd
-            xPos = 2 * -Constants.myWorldSize + (xPos + xMovement)
+            xPos = xMovement
         }
         else
             xPos += xMovement
     }
 
     override fun draw(gc: GraphicsContext) {
-        gc.fillRoundRect(xPos, yPos, size, size, 50.0, 25.0)
+        gc.fillRoundRect(xPos, yPos, radius, radius, 50.0, 25.0)
     }
 }
