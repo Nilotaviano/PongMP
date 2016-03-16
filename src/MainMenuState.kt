@@ -23,6 +23,7 @@ class MainMenuState : Application() {
 
     override fun start(primaryStage: Stage) {
         primaryStage.title = "JavaFX Welcome"
+        primaryStage.isResizable = false
 
         val grid = GridPane()
         grid.alignment = Pos.CENTER
@@ -30,8 +31,9 @@ class MainMenuState : Application() {
         grid.vgap = 10.0
         grid.padding = Insets(25.0, 25.0, 25.0, 25.0)
 
-        val scene = Scene(grid, 300.0, 275.0)
+        val scene = Scene(grid, Constants.windowWidth, Constants.windowHeight)
         primaryStage.scene = scene
+        primaryStage.sizeToScene()
 
         val scenetitle = Text("Welcome")
         scenetitle.font = Font.font("Tahoma", FontWeight.NORMAL, 20.0)

@@ -3,7 +3,8 @@
  */
 class Constants {
     companion object {
-        val myWorldSize: Double = 800.0 //TODO
+        val windowWidth = 800.0
+        val windowHeight = 600.0
     }
 
 }

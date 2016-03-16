@@ -3,9 +3,13 @@ import javafx.scene.canvas.GraphicsContext
 /**
  * Created by nilot on 14/03/2016.
  */
-class Ball(var xPos: Double, var yPos: Double, var xSpd: Double, var ySpd: Double) : IUpdateable, IDrawable
+class Ball(var x: Double, var y: Double, var xSpd: Double, var ySpd: Double) : IUpdateable, IDrawable, ICollidable
 {
-    val radius = Constants.myWorldSize / 200
+    val width = Constants.windowWidth / 100
+    val height = Constants.windowHeight / 100
+
+    override val bounds: Boundary
+        get() = Boundary(x, y, width, height)
 
     override fun update(interval: Double) {
         val xMovement = xSpd * interval
@@ -17,37 +21,37 @@ class Ball(var xPos: Double, var yPos: Double, var xSpd: Double, var ySpd: Doubl
 
     private fun incrementYPos(yMovement: Double) {
 
-        if(yPos + yMovement >= Constants.myWorldSize)
+        if (y + yMovement >= Constants.windowHeight)
         {
             ySpd = -ySpd
-            yPos = 2 * Constants.myWorldSize - (yPos + yMovement)
-        }
-        else if(yPos + yMovement <= 0)
+            y = 2 * Constants.windowHeight - (y + yMovement)
+        } else if (y - yMovement - height <= 0)
         {
             ySpd = -ySpd
-            yPos = yMovement - yPos
+            y = -yMovement - y
         }
         else
-            yPos += yMovement
+            y += yMovement
     }
 
     private fun incrementXPos(xMovement: Double) {
 
-        if(xPos + xMovement >= Constants.myWorldSize)
+        if (x + xMovement >= Constants.windowWidth)
         {
             xSpd = -xSpd
-            xPos = 2 * Constants.myWorldSize - (xPos + xMovement)
-        }
-        else if(xPos + xMovement <= 0)
+            x = 2 * Constants.windowWidth - (x + xMovement)
+        } else if (x - xMovement - width <= 0)
         {
             xSpd = -xSpd
-            xPos = xMovement - xPos
+            x = -xMovement - x
         }
         else
-            xPos += xMovement
+            x += xMovement
     }
 
     override fun draw(gc: GraphicsContext) {
-        gc.fillRoundRect(xPos, yPos, radius, radius, 50.0, 25.0)
+        gc.fillRoundRect(x, y, width, height, 50.0, 25.0)
     }
+
+    override fun collidesWith(other: ICollidable): Boolean = bounds.intersectsWith(other.bounds)
 }
