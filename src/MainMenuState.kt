@@ -18,7 +18,11 @@ import javafx.scene.text.Font
 import javafx.scene.text.FontWeight
 import javafx.scene.text.Text
 import javafx.stage.Stage
+import java.net.Inet4Address
+import java.net.InetSocketAddress
+import java.net.UnknownHostException
 
+@Suppress("NAME_SHADOWING")
 class MainMenuState : Application() {
 
     override fun start(primaryStage: Stage) {
@@ -63,17 +67,41 @@ class MainMenuState : Application() {
         grid.add(actionTarget, 1, 6)
 
         connectButton.onAction = EventHandler<ActionEvent> {
-            actionTarget.fill = Color.FIREBRICK
-            actionTarget.text = "Connect button pressed"
+            try {
+                val port: Int = portField.text.toInt()
+                val ip = ipAddressField.text
+                val address = Inet4Address.getByName(ip)
 
-            PlayState().start(primaryStage)
+                ClientPlayState(InetSocketAddress(address, port)).start(primaryStage)
+            } catch(e: NumberFormatException) {
+                actionTarget.fill = Color.FIREBRICK
+                actionTarget.text = "Port must be numeric"
+            } catch(e: UnknownHostException) {
+                actionTarget.fill = Color.FIREBRICK
+                actionTarget.text = "Can't find host"
+            } catch(e: Exception) {
+                actionTarget.fill = Color.FIREBRICK
+                actionTarget.text = "Unknown error: ${e.toString()}"
+            }
         }
 
         hostButton.onAction = EventHandler<ActionEvent> {
-            actionTarget.fill = Color.FIREBRICK
-            actionTarget.text = "Host button pressed"
+            try {
+                val port: Int = portField.text.toInt()
+                val ip = ipAddressField.text
+                val address = Inet4Address.getByName(ip)
 
-            PlayState().start(primaryStage)
+                HostPlayState(InetSocketAddress(address, port)).start(primaryStage)
+            } catch(e: NumberFormatException) {
+                actionTarget.fill = Color.FIREBRICK
+                actionTarget.text = "Port must be numeric"
+            } catch(e: UnknownHostException) {
+                actionTarget.fill = Color.FIREBRICK
+                actionTarget.text = "Can't find host"
+            } catch(e: Exception) {
+                actionTarget.fill = Color.FIREBRICK
+                actionTarget.text = "Unknown error: ${e.toString()}"
+            }
         }
 
         primaryStage.show()

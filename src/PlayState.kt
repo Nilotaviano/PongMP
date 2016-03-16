@@ -8,7 +8,11 @@ import javafx.scene.Group
 import javafx.scene.canvas.Canvas
 import javafx.stage.Stage
 
-class PlayState : Application() {
+abstract class PlayState : Application() {
+
+    protected val ball = Ball(50.0, 50.0, 25.0, 25.0)
+    protected val myPaddle = Paddle(Constants.windowWidth / 2, Constants.windowHeight * 0.95)
+    protected val opponentPaddle = Paddle(Constants.windowWidth / 2, Constants.windowHeight * 0.05)
 
     override fun start(primaryStage: Stage) {
         val root = Group()
@@ -21,8 +25,6 @@ class PlayState : Application() {
 
         val gc = canvas.graphicsContext2D
 
-        val ball = Ball(50.0, 50.0, 25.0, 25.0)
-        val paddle = Paddle(Constants.windowWidth / 2, Constants.windowHeight * 0.05)
         object : AnimationTimer() {
             var previousNanoTime = System.nanoTime()
 
@@ -32,11 +34,13 @@ class PlayState : Application() {
                 gc.clearRect(0.0, 0.0, canvas.width, canvas.height)
                 ball.update(nanoTimeElapsed)
                 ball.draw(gc)
-                paddle.update(nanoTimeElapsed)
-                paddle.draw(gc)
+                myPaddle.update(nanoTimeElapsed)
+                myPaddle.draw(gc)
+                opponentPaddle.update(nanoTimeElapsed)
+                opponentPaddle.draw(gc)
 
                 // TODO: Proper collision treatment
-                if (ball.collidesWith(paddle))
+                if (ball.collidesWith(myPaddle) || ball.collidesWith(opponentPaddle))
                     ball.ySpd = -ball.ySpd
             }
         }.start()

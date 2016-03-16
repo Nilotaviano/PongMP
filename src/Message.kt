@@ -1,6 +1,6 @@
 import java.io.Serializable
 
-class Message(val paddleXPos: Float, val ballXPos: Float, val ballYPos: Float) : Serializable
+class Message(val hostPaddleBoundary: Boundary, val clietPaddleBoundary: Boundary, val ballBoundary: Boundary) : Serializable
 {
-    
+
 }
