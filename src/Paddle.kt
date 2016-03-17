@@ -1,9 +1,6 @@
 import javafx.scene.canvas.GraphicsContext
 import javafx.scene.input.KeyCode
 
-/**
- * Created by nilot on 14/03/2016.
- */
 class Paddle(var x: Double, val y: Double) : IUpdateable, IDrawable, ICollidable
 {
     val maxSpd = 50

@@ -7,9 +7,6 @@ import java.net.Socket
 import java.util.*
 import kotlin.concurrent.schedule
 
-/**
- * Created by nilot on 16/03/2016.
- */
 class ClientPlayState(val socketAddress: InetSocketAddress) : PlayState() {
     lateinit var requestSocket: Socket
     lateinit var output: ObjectOutputStream

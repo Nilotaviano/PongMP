@@ -1,8 +1,5 @@
 import javafx.scene.canvas.GraphicsContext
 
-/**
- * Created by nilot on 14/03/2016.
- */
 class Ball(var x: Double, var y: Double, var xSpd: Double, var ySpd: Double) : IUpdateable, IDrawable, ICollidable
 {
     val width = Constants.windowWidth / 100

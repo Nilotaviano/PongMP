@@ -1,7 +1,3 @@
-/**
- * Created by nilot on 15/03/2016.
- */
-
 import javafx.animation.AnimationTimer
 import javafx.application.Application
 import javafx.scene.Group

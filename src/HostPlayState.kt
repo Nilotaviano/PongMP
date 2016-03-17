@@ -8,9 +8,6 @@ import java.net.Socket
 import java.util.*
 import kotlin.concurrent.schedule
 
-/**
- * Created by nilot on 16/03/2016.
- */
 class HostPlayState(val socketAddress: InetSocketAddress) : PlayState() {
     lateinit var serverSocket: ServerSocket
     lateinit var connection: Socket

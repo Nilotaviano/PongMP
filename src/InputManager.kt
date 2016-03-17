@@ -3,9 +3,6 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import java.util.*
 
-/**
- * Created by nilot on 14/03/2016.
- */
 object InputManager {
     private var _input: HashSet<KeyCode> = HashSet()
 

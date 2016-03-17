@@ -1,7 +1,3 @@
-/**
- * Created by nilot on 15/03/2016.
- */
-
 import javafx.application.Application
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
