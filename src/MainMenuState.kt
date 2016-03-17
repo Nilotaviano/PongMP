@@ -26,7 +26,7 @@ import java.net.UnknownHostException
 class MainMenuState : Application() {
 
     override fun start(primaryStage: Stage) {
-        primaryStage.title = "JavaFX Welcome"
+        primaryStage.title = "PongMP"
         primaryStage.isResizable = false
 
         val grid = GridPane()

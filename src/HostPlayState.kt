@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream
 import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
+import java.util.*
+import kotlin.concurrent.schedule
 
 /**
  * Created by nilot on 16/03/2016.
@@ -14,45 +16,57 @@ class HostPlayState(val socketAddress: InetSocketAddress) : PlayState() {
     lateinit var connection: Socket
     lateinit var output: ObjectOutputStream
     lateinit var input: ObjectInputStream
-    var message: String = ""
-    override fun start(primaryStage: Stage) {
-        try {
+
+    init {
+        myPaddle = Paddle(Constants.windowWidth / 2, Constants.windowHeight * 0.95)
+        opponentPaddle = Paddle(Constants.windowWidth / 2, Constants.windowHeight * 0.05)
+
             serverSocket = ServerSocket(socketAddress.port)
 
             connection = serverSocket.accept()
-            output = ObjectOutputStream(connection!!.getOutputStream())
-            input = ObjectInputStream(connection!!.getInputStream())
-            sendMessage("Connection successful")
+        output = ObjectOutputStream(connection.outputStream)
+        input = ObjectInputStream(connection.inputStream)
+        sendString("Connection successful")
 
-            ConnectionLoop()
-        } finally {
+        DoHandShake()
+    }
+
+    override fun start(primaryStage: Stage) {
+        Timer("schedule", true).schedule(1000, 10) {
             try {
-                input.close()
-                output.close()
-                serverSocket.close()
-            } catch (ioException: IOException) {
-                ioException.printStackTrace()
+                buildAndSendMessage()
+            } catch(e: Exception) {
+                System.err.println("Exception: ${e.toString()}")
             }
         }
+
+        Timer("schedule", true).schedule(1000, 10) {
+            try {
+                receiveMessage()
+            } catch(e: Exception) {
+                System.err.println("Exception: ${e.toString()}")
+            }
+        }
+        primaryStage.title = "PongMP - Host"
 
         super.start(primaryStage)
     }
 
-    private fun ConnectionLoop() {
+    private fun DoHandShake() {
+        var message: String = ""
+
         do {
             try {
                 message = input.readObject() as String
                 println("client>" + message)
-                if (message == "bye")
-                    sendMessage("bye")
-            } catch (classnot: ClassNotFoundException) {
+            } catch (classNot: ClassNotFoundException) {
                 System.err.println("Data received in unknown format")
             }
 
         } while (message != "bye")
     }
 
-    internal fun sendMessage(msg: String) {
+    private fun sendString(msg: String) {
         try {
             output.writeObject(msg)
             output.flush()
@@ -60,7 +74,31 @@ class HostPlayState(val socketAddress: InetSocketAddress) : PlayState() {
         } catch (ioException: IOException) {
             ioException.printStackTrace()
         }
-
     }
 
+    private fun buildAndSendMessage() {
+        var message = Message(myPaddle.bounds, opponentPaddle.bounds, ball.bounds, ball.xSpd, ball.ySpd)
+        try {
+            output.writeObject(message)
+            output.flush()
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+        }
+    }
+
+    private fun receiveMessage() {
+        var message: Message
+
+        try {
+            message = input.readObject() as Message
+
+            updateOpponentPaddleBounds(message.clientPaddleBoundary)
+        } catch (classNot: ClassNotFoundException) {
+            System.err.println("Data received in unknown format")
+        }
+    }
+
+    fun updateOpponentPaddleBounds(bounds: Boundary) {
+        opponentPaddle.x = bounds.x
+    }
 }

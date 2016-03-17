@@ -10,9 +10,9 @@ import javafx.stage.Stage
 
 abstract class PlayState : Application() {
 
-    protected val ball = Ball(50.0, 50.0, 25.0, 25.0)
-    protected val myPaddle = Paddle(Constants.windowWidth / 2, Constants.windowHeight * 0.95)
-    protected val opponentPaddle = Paddle(Constants.windowWidth / 2, Constants.windowHeight * 0.05)
+    internal val ball = Ball(50.0, 50.0, 25.0, 25.0)
+    lateinit internal var myPaddle: Paddle
+    lateinit internal var opponentPaddle: Paddle
 
     override fun start(primaryStage: Stage) {
         val root = Group()
@@ -36,7 +36,6 @@ abstract class PlayState : Application() {
                 ball.draw(gc)
                 myPaddle.update(nanoTimeElapsed)
                 myPaddle.draw(gc)
-                opponentPaddle.update(nanoTimeElapsed)
                 opponentPaddle.draw(gc)
 
                 // TODO: Proper collision treatment

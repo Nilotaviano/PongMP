@@ -1,7 +1,9 @@
+import java.io.Serializable
+
 /**
  * Created by nilot on 16/03/2016.
  */
-class Boundary(val x: Double, val y: Double, val width: Double, val height: Double) {
+class Boundary(val x: Double, val y: Double, val width: Double, val height: Double) : Serializable {
     fun intersectsWithSide(other: Boundary): Boolean {
         return (this.y > other.y && this.y + this.height < other.y + other.height) &&
                 ((this.x + this.width > other.x && this.x + this.width < other.x + other.width) ||
