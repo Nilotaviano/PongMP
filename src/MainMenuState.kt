@@ -35,9 +35,9 @@ class MainMenuState : Application() {
         primaryStage.scene = scene
         primaryStage.sizeToScene()
 
-        val scenetitle = Text("Welcome")
-        scenetitle.font = Font.font("Tahoma", FontWeight.NORMAL, 20.0)
-        grid.add(scenetitle, 0, 0, 2, 1)
+        val sceneTitle = Text("Welcome")
+        sceneTitle.font = Font.font("Tahoma", FontWeight.NORMAL, 20.0)
+        grid.add(sceneTitle, 0, 0, 2, 1)
 
         val ipAddress = Label("IP Address:")
         grid.add(ipAddress, 0, 1)
