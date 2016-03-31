@@ -1,3 +1,5 @@
+package pong
+
 import javafx.scene.canvas.GraphicsContext
 
 interface IDrawable {

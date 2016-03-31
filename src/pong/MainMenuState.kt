@@ -1,3 +1,5 @@
+package pong
+
 import javafx.application.Application
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
@@ -31,7 +33,7 @@ class MainMenuState : Application() {
         grid.vgap = 10.0
         grid.padding = Insets(25.0, 25.0, 25.0, 25.0)
 
-        val scene = Scene(grid, Constants.windowWidth, Constants.windowHeight)
+        val scene = Scene(grid, Constants.Companion.windowWidth, Constants.Companion.windowHeight)
         primaryStage.scene = scene
         primaryStage.sizeToScene()
 

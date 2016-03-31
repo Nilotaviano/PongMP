@@ -1,3 +1,5 @@
+package pong
+
 class Constants {
     companion object {
         val windowWidth = 800.0

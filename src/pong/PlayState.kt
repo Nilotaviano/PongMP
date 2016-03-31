@@ -1,3 +1,5 @@
+package pong
+
 import javafx.animation.AnimationTimer
 import javafx.application.Application
 import javafx.scene.Group
@@ -6,7 +8,7 @@ import javafx.stage.Stage
 
 abstract class PlayState : Application() {
 
-    internal val ball = Ball(50.0, 50.0, 25.0, 25.0)
+    lateinit internal var ball: Ball
     lateinit internal var myPaddle: Paddle
     lateinit internal var opponentPaddle: Paddle
 
@@ -14,7 +16,7 @@ abstract class PlayState : Application() {
         val root = Group()
         primaryStage.scene.root = root
 
-        val canvas = Canvas(Constants.windowWidth, Constants.windowHeight)
+        val canvas = Canvas(Constants.Companion.windowWidth, Constants.Companion.windowHeight)
         root.children.setAll(canvas)
 
         InputManager.initialize(primaryStage.scene)
