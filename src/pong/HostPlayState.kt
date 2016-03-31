@@ -1,10 +1,9 @@
 package pong
 
 import javafx.stage.Stage
-import java.net.InetSocketAddress
 import java.rmi.Naming
 
-class HostPlayState(val socketAddress: InetSocketAddress) : PlayState() {
+class HostPlayState() : PlayState() {
 
     init {
         val hostPaddleBounds = Boundary(Constants.windowWidth / 2, Constants.windowHeight * 0.95, Constants.windowWidth / 10, Constants.windowHeight / 100)

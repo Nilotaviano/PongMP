@@ -84,22 +84,7 @@ class MainMenuState : Application() {
         }
 
         hostButton.onAction = EventHandler<ActionEvent> {
-            try {
-                val port: Int = portField.text.toInt()
-                val ip = ipAddressField.text
-                val address = Inet4Address.getByName(ip)
-
-                HostPlayState(InetSocketAddress(address, port)).start(primaryStage)
-            } catch(e: NumberFormatException) {
-                actionTarget.fill = Color.FIREBRICK
-                actionTarget.text = "Port must be numeric"
-            } catch(e: UnknownHostException) {
-                actionTarget.fill = Color.FIREBRICK
-                actionTarget.text = "Can't find host"
-            } catch(e: Exception) {
-                actionTarget.fill = Color.FIREBRICK
-                actionTarget.text = "Unknown error: ${e.toString()}"
-            }
+            HostPlayState().start(primaryStage)
         }
 
         primaryStage.show()
