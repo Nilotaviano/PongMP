@@ -84,7 +84,12 @@ class MainMenuState : Application() {
         }
 
         hostButton.onAction = EventHandler<ActionEvent> {
-            HostPlayState().start(primaryStage)
+            try {
+                HostPlayState().start(primaryStage)
+            } catch(e: Exception) {
+                actionTarget.fill = Color.FIREBRICK
+                actionTarget.text = "Unknown error: ${e.toString()}"
+            }
         }
 
         primaryStage.show()
