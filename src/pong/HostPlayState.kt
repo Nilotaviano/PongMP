@@ -11,11 +11,11 @@ class HostPlayState(val socketAddress: InetSocketAddress) : PlayState() {
         val clientPaddleBounds = Boundary(Constants.windowWidth / 2, Constants.windowHeight * 0.05, Constants.windowWidth / 10, Constants.windowHeight / 100)
         val ballBounds = Boundary(50.0, 50.0, Constants.windowWidth / 100, Constants.windowWidth / 100)
 
-        val connectionString = "/${socketAddress.address}:${socketAddress.port}/"
+        val connectionString = "RMIServer/"
 
-        Naming.bind(connectionString + "hostPaddleBounds", hostPaddleBounds)
-        Naming.bind(connectionString + "clientPaddleBounds", clientPaddleBounds)
-        Naming.bind(connectionString + "ballBounds", ballBounds)
+        Naming.rebind(connectionString + "hostPaddleBounds", hostPaddleBounds)
+        Naming.rebind(connectionString + "clientPaddleBounds", clientPaddleBounds)
+        Naming.rebind(connectionString + "ballBounds", ballBounds)
 
         myPaddle = Paddle(hostPaddleBounds)
         opponentPaddle = Paddle(clientPaddleBounds)

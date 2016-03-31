@@ -8,7 +8,7 @@ import java.rmi.Naming
 class ClientPlayState(val socketAddress: InetSocketAddress) : PlayState() {
 
     init {
-        val connectionString = "/${socketAddress.address}:${socketAddress.port}/"
+        val connectionString = "rmi://${socketAddress.hostName}/RMIServer/"
 
         val hostPaddleBounds = Naming.lookup(connectionString + "hostPaddleBounds") as IRemoteBoundary
         val clientPaddleBounds = Naming.lookup(connectionString + "clientPaddleBounds") as IRemoteBoundary
