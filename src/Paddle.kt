@@ -5,7 +5,7 @@ class Paddle(var x: Double, val y: Double) : IUpdateable, IDrawable, ICollidable
 {
     val maxSpd = 50
     val width = Constants.windowWidth / 10
-    val height = Constants.windowHeight / 100
+    val height = Constants.windowHeight / 50
 
     override val bounds: Boundary
         get() = Boundary(x, y, width, height)
