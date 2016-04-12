@@ -27,7 +27,7 @@ class ClientPlayState(val socketAddress: InetSocketAddress) : PlayState() {
     }
 
     override fun start(primaryStage: Stage) {
-        Timer("schedule", true).schedule(1000, 10) {
+        Timer("schedule", true).schedule(1000, 5) {
             try {
                 buildAndSendMessage()
             } catch(e: Exception) {
@@ -35,7 +35,7 @@ class ClientPlayState(val socketAddress: InetSocketAddress) : PlayState() {
             }
         }
 
-        Timer("schedule", true).schedule(1000, 10) {
+        Timer("schedule", true).schedule(1000, 5) {
             try {
                 receiveMessage()
             } catch(e: Exception) {
