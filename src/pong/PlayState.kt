@@ -30,17 +30,16 @@ abstract class PlayState : Application() {
                 val nanoTimeElapsed = (currentNanoTime - previousNanoTime) / 100000000.0
                 previousNanoTime = System.nanoTime()
                 gc.clearRect(0.0, 0.0, canvas.width, canvas.height)
-                ball.update(nanoTimeElapsed)
                 ball.draw(gc)
-                myPaddle.update(nanoTimeElapsed)
                 myPaddle.draw(gc)
                 opponentPaddle.draw(gc)
 
-                // TODO: Proper collision treatment
-                if (ball.collidesWith(myPaddle) || ball.collidesWith(opponentPaddle))
-                    ball.ySpd = -ball.ySpd
+                update(nanoTimeElapsed)
             }
-        }.start()
 
+
+        }.start()
     }
+
+    internal abstract fun update(nanoTimeElapsed: Double)
 }

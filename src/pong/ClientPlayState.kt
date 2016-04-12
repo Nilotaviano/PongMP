@@ -8,15 +8,19 @@ import java.rmi.Naming
 class ClientPlayState(val socketAddress: InetSocketAddress) : PlayState() {
 
     init {
-        val connectionString = "rmi://${socketAddress.hostName}/RMIServer/"
+        val connectionString = "rmi://${socketAddress.hostName}:${socketAddress.port}/${Constants.rmiServer}/"
 
-        val hostPaddleBounds = Naming.lookup(connectionString + "hostPaddleBounds") as IRemoteBoundary
-        val clientPaddleBounds = Naming.lookup(connectionString + "clientPaddleBounds") as IRemoteBoundary
-        val ballBounds = Naming.lookup(connectionString + "ballBounds") as IRemoteBoundary
+        val hostPaddleBounds = Naming.lookup(connectionString + Constants.hostPaddleBounds) as IRemoteBoundary
+        val clientPaddleBounds = Naming.lookup(connectionString + Constants.clientPaddleBounds) as IRemoteBoundary
+        val ballBounds = Naming.lookup(connectionString + Constants.ballBounds) as IRemoteBoundary
 
-        myPaddle = Paddle(hostPaddleBounds)
-        opponentPaddle = Paddle(clientPaddleBounds)
+        myPaddle = Paddle(clientPaddleBounds)
+        opponentPaddle = Paddle(hostPaddleBounds)
         ball = Ball(ballBounds, 25.0, 25.0)
+    }
+
+    override fun update(nanoTimeElapsed: Double) {
+        myPaddle.update(nanoTimeElapsed)
     }
 
     override fun start(primaryStage: Stage) {
@@ -24,6 +28,4 @@ class ClientPlayState(val socketAddress: InetSocketAddress) : PlayState() {
 
         super.start(primaryStage)
     }
-
-
 }

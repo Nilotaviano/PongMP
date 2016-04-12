@@ -85,7 +85,9 @@ class MainMenuState : Application() {
 
         hostButton.onAction = EventHandler<ActionEvent> {
             try {
-                HostPlayState().start(primaryStage)
+                val port: Int = portField.text.toInt()
+
+                HostPlayState(port).start(primaryStage)
             } catch(e: Exception) {
                 actionTarget.fill = Color.FIREBRICK
                 actionTarget.text = "Unknown error: ${e.toString()}"
